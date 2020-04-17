@@ -4,7 +4,7 @@ export const typeDefs = gql`
     type Listing {
         id: ID!
         title: String!
-        images: String!
+        image: String!
         address: String!
         price: Int!
         numOfGuests: Int!
