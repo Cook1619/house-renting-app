@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 
 render(
   <React.StrictMode>
-    <Listings />
+    <Listings title="House Rental Listings"/>
   </React.StrictMode>,
   document.getElementById('root')
 );
