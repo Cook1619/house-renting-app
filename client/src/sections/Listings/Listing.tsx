@@ -1,6 +1,10 @@
 import React from "react";
 import { server } from "../../lib/api";
-import { ListingsData } from './types';
+import {
+  ListingsData,
+  DeleteListingData,
+  DeleteListingVariables,
+} from "./types";
 
 const LISTINGS = `
   query Listings {
@@ -18,6 +22,14 @@ const LISTINGS = `
   }
 `;
 
+const DELETE_LISTING = `
+  mutation DeleteListing {
+      deleteListing {
+          id
+      }
+  }
+`;
+
 interface Props {
   title: string;
 }
@@ -28,10 +40,13 @@ export const Listings = ({ title }: Props) => {
     console.log(data.listings);
   };
 
+  const deleteListing = async () => {};
+
   return (
     <div>
       <h2>{title}</h2>
       <button onClick={fetchListings}>Query Listings!</button>
+      <button onClick={deleteListing}>Delete a Listing</button>
     </div>
   );
 };
