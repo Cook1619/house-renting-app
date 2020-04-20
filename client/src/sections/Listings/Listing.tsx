@@ -23,8 +23,8 @@ const LISTINGS = `
 `;
 
 const DELETE_LISTING = `
-  mutation DeleteListing {
-      deleteListing {
+  mutation DeleteListing( $id: ID!) {
+      deleteListing(id: $id) {
           id
       }
   }
@@ -40,7 +40,18 @@ export const Listings = ({ title }: Props) => {
     console.log(data.listings);
   };
 
-  const deleteListing = async () => {};
+  const deleteListing = async () => {
+    const { data } = await server.fetch<
+      DeleteListingData,
+      DeleteListingVariables
+    >({
+      query: DELETE_LISTING,
+      variables: {
+        id: "5e9275979232a24628f12351", // hardcoded id variable,
+      },
+    });
+    console.log(data);
+  };
 
   return (
     <div>
