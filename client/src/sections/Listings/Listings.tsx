@@ -1,12 +1,13 @@
 import React from "react";
-import { useQuery, useMutation } from "../../lib/api";
+import { gql } from "apollo-boost";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
   ListingsData,
   DeleteListingData,
   DeleteListingVariables,
 } from "./types";
 
-const LISTINGS = `
+const LISTINGS = gql`
   query Listings {
     listings {
       id
@@ -22,11 +23,11 @@ const LISTINGS = `
   }
 `;
 
-const DELETE_LISTING = `
-  mutation DeleteListing( $id: ID!) {
-      deleteListing(id: $id) {
-          id
-      }
+const DELETE_LISTING = gql`
+  mutation DeleteListing($id: ID!) {
+    deleteListing(id: $id) {
+      id
+    }
   }
 `;
 
@@ -43,7 +44,7 @@ export const Listings = ({ title }: Props) => {
   ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING);
 
   const handleDeleteListing = async (id: string) => {
-    await deleteListing({ id })
+    await deleteListing({ variables: { id } });
     refetch();
   };
 
@@ -72,11 +73,11 @@ export const Listings = ({ title }: Props) => {
     return <h2> Something went wrong.....please try again later</h2>;
   }
 
-  const deleteListingLoadingMessage =  deleteListingLoading ? (
+  const deleteListingLoadingMessage = deleteListingLoading ? (
     <h4>Deletion in progress....</h4>
   ) : null;
 
-  const deleteListingErrorMessage =  deleteListingError ? (
+  const deleteListingErrorMessage = deleteListingError ? (
     <h4>Something went wrong with deleting, please try again later...</h4>
   ) : null;
 
